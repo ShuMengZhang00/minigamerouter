@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package router;
+
+option go_package = "/router";
+
+service Router {
+  rpc GetOneInstanceWithPrefix (GetEndpointWithPrefixRequest) returns (GetOneInstanceResponse) {}
+  rpc SetRouteRule (SetRouteRuleRequest) returns (SetRouteRuleResponse) {}
+}
+
+
+message ServiceInfo{
+  string namespace = 1;
+  string service_name = 2;
+  string instance_id = 3;
+  string host = 4;
+  string port = 5;
+  int64 weight = 6;
+  repeated KV metadata = 7;
+}
+
+message KV {
+  string key = 1;
+  string value = 2;
+}
+
+message GetEndpointWithPrefixRequest{
+  string service_name = 1;
+  string namespace = 2;
+  string key = 3;
+}
+
+message GetInstancesResponse {
+  repeated ServiceInfo instances = 1;
+  string error_mes = 2;
+}
+
+message GetOneInstanceResponse {
+  ServiceInfo instance = 1;
+  string error = 2;
+}
+
+message Endpoint {
+  string host = 2;
+  string port = 3;
+}
+
+message SetRouteRuleRequest{
+  string namespace = 1;
+  string service_name = 2;
+  string instanceID = 4; // endpoint
+  string prefix = 3;
+}
+
+message SetRouteRuleResponse{
+  string error_mes = 1;
+}

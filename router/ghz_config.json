@@ -1,0 +1,13 @@
+{
+  "proto": "./proto/router.proto",
+  "call": "router.Router.GetOneInstanceWithPrefix",
+  "host": "localhost:50051",
+  "total": 2000,
+  "concurrency": 50,
+  "plaintext": true,
+  "data": {
+      "service_name":"testserver",
+      "key":"arandomkey123",
+      "namespace": "default"
+  }
+}
